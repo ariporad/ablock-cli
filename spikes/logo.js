@@ -1,11 +1,18 @@
 /* (c) 2015 Ari Porad (@ariporad) <http://ariporad.com>. License: ariporad.mit-license.org */
+
+/**
+ * This was my attempt at automagically drawing the logo with ASCII Art. It failed pretty bad, and I really couldn't
+ * understand it. I commented it out for linting reasons.
+ */
+
+/*
 require('babel/polyfill');
 const chalk = require('chalk');
 const hasUnicode = require('has-unicode')();
 
 /**
  * Settings
- */
+ * /
 const STROKE_WIDTH = 3; // 2 = 2, 1.5 = 1, 3 = 4, 4 = 6, 5 = 8
 const LETTER_WIDTH = 40; // 2x
 const EXTRA = 6;
@@ -15,7 +22,7 @@ const BOTTOM_MARGIN = 3; // Must be less than EXTRA;
 
 /**
  * Computed
- */
+ * /
 //const FILL_CHAR = '#'; // For debugging, sometimes a hash is helpful.
 // Two strokes, with 1 char of actual line on each side + LETTER_WIDTH + Padding on both sides
 const WIDTH = (STROKE_WIDTH * 2) + LETTER_WIDTH + EXTRA;
@@ -30,12 +37,12 @@ console.log('Padding:', PADDING);
 
 /**
  * Generate the grid.
- */
+ * /
 logo = logo.fill('').map(() => (new Array(WIDTH)).fill(chalk.blue.bgBlue(FILL_CHAR)));
 
 /**
  * Corners
- */
+ * /
 
 logo[0][0]= chalk.bold.blue('/'); // Top Left
 logo[0][WIDTH - 1] = chalk.bold.blue('\\'); // Top Right
@@ -44,11 +51,11 @@ logo[HEIGHT - 1][WIDTH - 1] = chalk.bold.blue('/'); // Bottom Right
 
 /**
  * Letter
- */
+ * /
 
 /**
  * The cross
- */
+ * /
 
 const letterHeight = LETTER_WIDTH / 2; // It's actually one more than this, but that leads to decimals.
 const letterBase = HEIGHT - 1 - (BOTTOM_MARGIN + LETTER_WIDTH / 2 + 1);
@@ -147,6 +154,5 @@ module.exports = function makeLogo(strokeWidth = 3, letterWidth = 40, padding = 
   drawLetter(logo, height, strokeWidth, letterWidth, margin, padding);
 };
 
-
-
 console.log(logo.map(line => line.join('')).join('\n'));
+*/

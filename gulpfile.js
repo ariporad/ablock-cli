@@ -12,8 +12,8 @@ var plugins = require('load-deps')('gulp-*', {
 
 function logErrors(stream) {
   stream.on('error', function logError(err) {
-    err.message && console.error(err.message);
-    err.stack && console.error(err.stack);
+    if (err.message) console.error(err.message);
+    if (err.stack) console.error(err.stack);
   });
 }
 
@@ -23,8 +23,8 @@ function negate(paths) {
   });
 }
 
-var SRC = 'src';
-var DEST = 'build';
+var SRC = 'lib';
+var DEST = 'dist';
 var SPIKES = './spikes';
 
 var SRC_OTHER = [SRC + '/**', '!**/*.js'];
@@ -102,13 +102,13 @@ function testCoverage(done) {
       .pipe(plugins.istanbul()) // Covering files
       .pipe(plugins.istanbul.hookRequire()) // Force `require` to return covered files
       .on('finish', function runTests() {
-            var coverageStream = gulp.src(toDest(TESTS))
-              .pipe(plugins.mocha(MOCHA_OPTS))
-              .pipe(plugins.istanbul.writeReports()) // Creating the reports after tests ran
-              .pipe(plugins.istanbul.enforceThresholds({ thresholds: { global: 90 } })); // Min CC
-            logErrors(coverageStream);
-            done(coverageStream);
-          });
+        var coverageStream = gulp.src(toDest(TESTS))
+          .pipe(plugins.mocha(MOCHA_OPTS))
+          .pipe(plugins.istanbul.writeReports()) // Creating the reports after tests ran
+          .pipe(plugins.istanbul.enforceThresholds({ thresholds: { global: 90 } })); // Min CC
+        logErrors(coverageStream);
+        done(coverageStream);
+      });
   });
 }
 
@@ -116,11 +116,11 @@ gulp.task('test:cov', ['lint', 'build'], function testCov(done) {
   testCoverage(function setupExit(stream) {
     stream
       .on('error', function dieScreaming(err) {
-            setTimeout(process.exit.bind(process, 1), 50); // Let the event loop clear
-          })
+        setTimeout(process.exit.bind(process, 1), 50); // Let the event loop clear
+      })
       .on('end', function dieNicely() {
-            setTimeout(process.exit.bind(process, 0), 50); // Let the event loop clear
-          });
+        setTimeout(process.exit.bind(process, 0), 50); // Let the event loop clear
+      });
   });
 });
 
@@ -143,10 +143,10 @@ gulp.task('travis', ['lint'], function travis(cb) {
     // Only upload coverage once
     if ((process.env.TRAVIS_JOB_NUMBER || '0.1').split('.').pop() === '1') return done();
     shell.exec([
-                 // Each item is one command.
-                 'cd ' + __dirname,
-                 'cat ' + __dirname + '/coverage/lcov.info | ' + __dirname + '/node_modules/coveralls/bin/coveralls.js',
-               ].join(';'));
+      // Each item is one command.
+      'cd ' + __dirname,
+      'cat ' + __dirname + '/coverage/lcov.info | ' + __dirname + '/node_modules/coveralls/bin/coveralls.js',
+    ].join(';'));
     done();
   });
 
