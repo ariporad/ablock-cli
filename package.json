@@ -14,12 +14,12 @@
     "type": "git",
     "url": "git+https://github.com/ariporad/ablock-cli.git"
   },
-  "author":  {
+  "author": {
     "name": "Ari Porad",
     "email": "ari@ariporad.com",
     "url": "http://ariporad.com"
   },
-  "contributors":  [],
+  "contributors": [],
   "devDependencies": {
     "babel": "5",
     "babel-eslint": "*",
@@ -37,15 +37,16 @@
     "gulp-istanbul": "*",
     "gulp-mocha": "2",
     "gulp-sourcemaps": "1",
+    "has-unicode": "^1.0.0",
     "load-deps": "1",
     "mocha": "2",
+    "once": "1",
     "rewire": "2",
+    "shelljs": "0.5",
     "sinomocha": "0.2",
     "sinon": "1",
     "sinon-chai": "2",
-    "source-map-support": "0.3",
-    "shelljs": "0.5",
-    "once": "1"
+    "source-map-support": "0.3"
   },
   "license": "MIT",
   "bugs": {
