@@ -45,6 +45,8 @@ var BABEL_OPTIONS = {
   babelrc: __dirname + '/.babelrc',
 };
 
+var isWatching = false;
+
 function toDest(paths) {
   return paths.map(function mapToDest(path) {
     return path.replace(SRC, DEST);
@@ -73,11 +75,15 @@ gulp.task('copy:other', function copy() {
     .pipe(gulp.dest(DEST));
 });
 
-gulp.task('lint', function lint() {
+function lint() {
   return gulp.src(SRC_JS.concat(LINT_OTHER))
     .pipe(plugins.eslint())
     .pipe(plugins.eslint.format())
     .pipe(plugins.eslint.failAfterError());
+}
+
+gulp.task('lint', function lintTask(cb) {
+  return lint();
 });
 
 function test(done) {
@@ -91,6 +97,7 @@ function test(done) {
 
 gulp.task('test', ['lint'], function testTask(done) {
   test(function runTests(stream) {
+    if (isWatching) return;
     stream.on('error', process.exit.bind(process, 1));
     stream.on('end', process.exit.bind(process, 0));
   });
@@ -160,10 +167,8 @@ gulp.task('travis', ['lint'], function travis(cb) {
 
 gulp.task('watch', ['build'], function watch() {
   MOCHA_OPTS.reporter = 'min';
-  return gulp.watch(SRC_JS, function onWatch() {
-    test(function afterTests(stream) {
-    });
-  });
+  isWatching = true;
+  return gulp.watch(SRC_JS, ['test']);
 });
 
 gulp.task('clean', function clean() {
