@@ -28,7 +28,7 @@
     "chai": "3.3.0",
     "chai-as-promised": "5.1.0",
     "cz-conventional-changelog": "1.1.2",
-    "del": "2.0.2",
+    "del": "2.1.0",
     "eslint": "1.6.0",
     "eslint-config-airbnb": "0.1.0",
     "gulp": "3.9.0",
