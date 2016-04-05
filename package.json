@@ -57,7 +57,7 @@
   },
   "homepage": "https://github.com/ariporad/ablock-cli#readme",
   "dependencies": {
-    "lodash": "^3.10.1",
+    "lodash": "^4.8.2",
     "npmlog": "^1.2.1",
     "yargs": "^3.26.0"
   }
