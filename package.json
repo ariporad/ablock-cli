@@ -59,6 +59,6 @@
   "dependencies": {
     "lodash": "^3.10.1",
     "npmlog": "^1.2.1",
-    "yargs": "^3.26.0"
+    "yargs": "^4.8.0"
   }
 }
